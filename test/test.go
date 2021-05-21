@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"github.com/bitrise-io/go-utils/pathutil"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -17,7 +18,6 @@ import (
 	"github.com/bitrise-io/go-utils/colorstring"
 	"github.com/bitrise-io/go-utils/fileutil"
 	"github.com/bitrise-io/go-utils/log"
-	"github.com/bitrise-io/go-xcode/utility"
 	"github.com/bitrise-steplib/steps-deploy-to-bitrise-io/test/converters"
 )
 
@@ -164,7 +164,7 @@ func ParseTestResults(testsRootDir string) (results Results, err error) {
 			// <root_tests_dir>/<test_dir>/<unique_dir>
 			testPhaseDirPath := filepath.Join(testDirPath, testPhaseDir.Name())
 			// read one level of file set only <root_tests_dir>/<test_dir>/<unique_dir>/files_to_get
-			testFiles, err := filepath.Glob(filepath.Join(utility.EscapeGlobPath(testPhaseDirPath), "*"))
+			testFiles, err := filepath.Glob(filepath.Join(pathutil.EscapeGlobPath(testPhaseDirPath), "*"))
 			if err != nil {
 				return nil, err
 			}
